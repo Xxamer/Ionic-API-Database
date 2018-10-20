@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        {{movie ? 'Add Movie' : 'Update Movie'}}
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios,core">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content padding>
+    <form #movieForm="ngForm" (ngSubmit)="save(movieForm.value)" >
+      <input type="hidden" name="href" [(ngModel)]="movie.href">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <ion-item>
+              <ion-input placeholder="Movie Name" name="name" type="text"
+              required  [(ngModel)]="movie.name" #name></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Movie Genre" name="genre" type="text"
+              required    [(ngModel)]="movie.genre" #genre></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-textarea placeholder="Movie Description" name="description" type="text"
+              required  [(ngModel)]="movie.description" #description></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Movie Release Date" name="release_date" type="number"
+              required  [(ngModel)]="movie.release_date" #release_date></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+          <button   ion-button color="primary" full type="submit"
+                  [disabled]="!movieForm.form.valid">Save</button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-content>
